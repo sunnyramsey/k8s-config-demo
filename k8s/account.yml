@@ -1,0 +1,36 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  labels:
+    app: k8s-demo
+  name: k8s-demo
+
+---
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: k8s-demo-role
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    verbs: [ "get", "list", "watch" ]
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: k8s-demo-role-binding
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: k8s-demo
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: k8s-demo-role
+  apiGroup: ""
+
+

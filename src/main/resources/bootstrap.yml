@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: k8s-config-demo
+  cloud:
+    kubernetes:
+      client:
+        namespace: default
+      config:
+        name: k8s-config-demo
+        namespace: default
+        sources:
+          - namespace: default
+            name: k8s-config-demo
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        monitoring-secrets: false
+        strategy: refresh
+        mode: event
+
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "info,prometheus,refresh"

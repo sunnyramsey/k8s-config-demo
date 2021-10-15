@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-config-demo
+  labels:
+    app: k8s-config-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-config-demo
+  template:
+    metadata:
+      labels:
+        app: k8s-config-demo
+    spec:
+        serviceAccountName: k8s-demo
+        containers:
+        - name: k8s-config-demo
+          image: docker.io/ramseyzju/k8s-config-demo:0.0.1
+          imagePullPolicy: Always
+
